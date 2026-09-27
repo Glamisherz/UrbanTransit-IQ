@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+
+/* Make all interactive dashboard controls display pointer hand cursor */
+button,
+select,
+input[type="range"],
+input[type="checkbox"],
+a,
+tr.hover\:bg-indigo-500\/5 {
+  cursor: pointer !important;
+}
+
+/* NEXT-LEVEL COMMAND CENTER DARK THEMING & FULL VIEWPORT RESETS */
+:root {
+  --bg-main: #04060a;
+  --bg-card: rgba(15, 23, 42, 0.6);
+  --border-card: rgba(51, 65, 85, 0.6);
+  --accent-neon: #6366f1;
+  --accent-cyan: #06b6d4;
+  --accent-amber: #f59e0b;
+  --text-main: #f8fafc;
+  --text-sub: #94a3b8;
+  color-scheme: dark;
+}
+
+/* Global Reset - Force 100% Width & Zero Margins */
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  min-height: 100vh !important;
+  background-color: var(--bg-main) !important;
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Override Vite Default Centralized #root Container */
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box !important;
+  text-align: left !important;
+  border: none !important;
+}
+
+/* Next-Level Glowing Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04060a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+}
+
+/* Glassmorphism Panel Utilities */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(51, 65, 85, 0.6) !important;
+}
+
+.glass-panel-glow {
+  background: rgba(15, 23, 42, 0.7) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Typography Standards */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  color: #38bdf8;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+@keyframes driveTransit {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+.animate-transit-drive {
+  animation: driveTransit 12s linear infinite;
+}
+
+/* Make sure all interactive elements display a pointer hand */
+button, select, input[type="range"], a, .cursor-pointer {
+  cursor: pointer !important;
+}

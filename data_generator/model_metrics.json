@@ -1,0 +1,39 @@
+{
+    "delay_classifiers": {
+        "random_forest_accuracy": 90.15,
+        "hist_gradient_boosting_accuracy": 90.27,
+        "overall_match_accuracy": 90.12,
+        "winning_classifier": "HistGradientBoosting",
+        "total_trips_evaluated": 100000,
+        "pyspark_mllib_accuracy": 89.98,
+        "pyspark_mllib_f1": 0.8999,
+        "cross_pipeline_match_rate": 99.0,
+        "total_records_processed": 500000
+    },
+    "demand_forecasters": {
+        "winning_forecaster": "HistGradientBoostingRegressor",
+        "best_r2_score": 0.9976,
+        "forecaster_models": {
+            "HistGradientBoostingRegressor": {
+                "mae": 1.54,
+                "rmse": 1.93,
+                "r2_score": 0.9976
+            },
+            "RandomForestRegressor": {
+                "mae": 1.55,
+                "rmse": 1.94,
+                "r2_score": 0.9975
+            }
+        }
+    },
+    "route_clustering": {
+        "silhouette_score": 0.357,
+        "clusters_count": 4,
+        "archetype_counts": {
+            "Overcrowded Bottleneck": 33,
+            "Reliable Low-Demand": 30,
+            "High-Delay Risk": 21,
+            "High-Performing Express": 16
+        }
+    }
+}
