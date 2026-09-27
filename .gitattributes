@@ -1,0 +1,5 @@
+data_generator/data/raw/tickets.csv filter=lfs diff=lfs merge=lfs -text
+data_generator/data/raw/passenger_counts.csv filter=lfs diff=lfs merge=lfs -text
+data_generator/data/raw/tickets.parquet filter=lfs diff=lfs merge=lfs -text
+data_generator/data/raw/trips.csv filter=lfs diff=lfs merge=lfs -text
+data_generator/data/processed/tickets_cleaned.parquet filter=lfs diff=lfs merge=lfs -text
