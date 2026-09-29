@@ -770,7 +770,7 @@ function App() {
     };
   }, [simFreq, simBuses, simDemand]);
 
-  const API_BASE = "https://urbantransit-iq.onrender.com/";
+  const API_BASE = "https://urbantransit-iq.onrender.com";
 
   const fullODData = useMemo(
     () => [
