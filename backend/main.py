@@ -349,10 +349,31 @@ def get_recommendations():
     if os.path.exists(rec_path):
         df = pd.read_csv(rec_path)
         df = df.fillna("")
-        return df.to_dict(orient="records")
+        
+        # Frontend-compatible key mapping
+        rename_map = {}
+        for col in df.columns:
+            col_lower = col.lower()
+            if "route" in col_lower:
+                rename_map[col] = "Route_ID"
+            elif "priority" in col_lower:
+                rename_map[col] = "Priority_Level"
+            elif "action" in col_lower or "recommendation" in col_lower:
+                rename_map[col] = "Prescriptive_Action"
+                
+        df = df.rename(columns=rename_map)
+        records = df.to_dict(orient="records")
+        
+        for rec in records:
+            if "Route_ID" not in rec: rec["Route_ID"] = rec.get("route_id", "R-10")
+            if "Priority_Level" not in rec: rec["Priority_Level"] = rec.get("priority", "HIGH")
+            if "Prescriptive_Action" not in rec: rec["Prescriptive_Action"] = rec.get("action", rec.get("recommendation", "Deploy backup fleet."))
+            
+        return records
+
     return [
-        {"route_id": "R-10", "action": "Deploy 3 articulated buses during morning peak", "priority": "High"},
-        {"route_id": "R-22", "action": "Optimize headway interval from 12 mins to 8 mins", "priority": "Critical"}
+        {"Route_ID": "R-10", "Prescriptive_Action": "Deploy 3 articulated buses during morning peak", "Priority_Level": "HIGH"},
+        {"Route_ID": "R-22", "Prescriptive_Action": "Optimize headway interval from 12 mins to 8 mins", "Priority_Level": "CRITICAL"}
     ]
 
 @app.post("/api/simulate-what-if")
