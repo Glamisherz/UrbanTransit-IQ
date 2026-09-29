@@ -7,6 +7,7 @@ import os
 import json
 import sqlite3
 from datetime import datetime
+from pathlib import Path
 
 app = FastAPI(title="UrbanTransit IQ API Engine", version="2.6.0")
 
@@ -18,10 +19,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-PROCESSED_DIR = "../data_generator/data/processed"
-FEATURES_DIR = "../data_generator/data/features"
-METRICS_FILE = "../data_generator/model_metrics.json"
-DB_FILE = "urbantransit.db"
+# Robust path resolution relative to main.py
+BASE_DIR = Path(__file__).resolve().parent
+PROCESSED_DIR = BASE_DIR / "data_generator" / "data" / "processed"
+FEATURES_DIR = BASE_DIR / "data_generator" / "data" / "features"
+METRICS_FILE = BASE_DIR / "data_generator" / "model_metrics.json"
+DB_FILE = BASE_DIR / "urbantransit.db"
 
 # ================= DATABASE INITIALIZATION =================
 def get_db():
@@ -240,7 +243,7 @@ def health_check():
 
 @app.get("/api/kpis")
 def get_network_kpis():
-    delay_path = os.path.join(FEATURES_DIR, "delay_features.parquet")
+    delay_path = FEATURES_DIR / "delay_features.parquet"
     if os.path.exists(delay_path):
         delay_df = pd.read_parquet(delay_path)
         total_trips = len(delay_df)
@@ -265,7 +268,6 @@ def get_network_kpis():
 
 @app.get("/api/od-matrix")
 def get_origin_destination_matrix(route_id: str = None, period: str = None):
-    # Filterable OD Matrix as per SRS requirements
     base_matrix = [
         {"origin": "Karachi Central (S001)", "destination": "Clifton (S005)", "route_id": "R-10", "passenger_volume": 42500, "peak_period": "Morning Peak", "status": "Bottleneck"},
         {"origin": "Gulshan (S012)", "destination": "Shahrah-e-Faisal (S020)", "route_id": "R-15", "passenger_volume": 38100, "peak_period": "Morning Peak", "status": "Normal"},
@@ -298,7 +300,6 @@ def get_dual_pipeline_comparison():
         except Exception:
             pass
 
-    # Generate 100+ Unseen Cases Comparison Table for Evaluator Dashboard as per SRS
     sample_records = []
     np.random.seed(42)
     for i in range(1, 101):
@@ -327,7 +328,6 @@ def get_dual_pipeline_comparison():
 
 @app.get("/api/analytics/data-quality-logs")
 def get_data_quality_logs():
-    # Quarantine logs and data cleaning metrics for Evaluator dashboard
     return [
         {"issue_type": "Duplicate Ticket IDs", "count": 142, "status": "Quarantined & Purged"},
         {"issue_type": "Invalid Timestamp Format", "count": 89, "status": "Corrected / Imputed"},
@@ -345,7 +345,7 @@ def get_persistent_overcrowding():
 
 @app.get("/api/recommendations")
 def get_recommendations():
-    rec_path = os.path.join(PROCESSED_DIR, "Operational_Recommendations.csv")
+    rec_path = PROCESSED_DIR / "Operational_Recommendations.csv"
     if os.path.exists(rec_path):
         df = pd.read_csv(rec_path)
         df = df.fillna("")
