@@ -1,20 +1,13 @@
-# UrbanTransit IQ - Project Dependencies
-# Python Backend & API Framework
 fastapi==0.110.0
 uvicorn==0.28.0
 requests==2.31.0
 pydantic==2.6.4
 
-# Data Processing & Analysis
-pandas==2.2.1
-numpy==1.26.4
-
-# Machine Learning & Big Data Processing
-pyspark==3.5.0
-scikit-learn==1.4.1.post1
+# Pre-compiled binary flags ke sath (Compilation error khatam karne ke liye)
+pandas==2.2.1 --only-binary=:all:
+numpy==1.26.4 --only-binary=:all:
+scikit-learn==1.4.1.post1 --only-binary=:all:
 joblib==1.3.2
 
-# Environment & Utilities
 python-dotenv==1.0.1
 openai==1.14.1
-pytest==8.1.1
